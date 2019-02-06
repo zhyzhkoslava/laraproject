@@ -19,4 +19,15 @@ class IndexController extends Controller
         return view('welcome')->with(['products'=>$products]);
 
     }
+
+    public function getSupport()
+    {
+        return view('contact');
+    }
+
+    public function getProduct ($id){
+        $product = Product::select(['id', 'name', 'price', 'description'])->where('id', $id)->with('product_images')->first();
+
+        return view('product')->with(['product' => $product]);
+    }
 }
