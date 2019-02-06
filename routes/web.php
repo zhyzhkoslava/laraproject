@@ -18,4 +18,6 @@
 
 Route::get('/', 'IndexController@index');
 
+Route::get('/support', 'IndexController@getSupport');
 
+Route::get('/{id}','IndexController@getProduct')->name('productShow');

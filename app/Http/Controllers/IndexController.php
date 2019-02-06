@@ -13,23 +13,21 @@ class IndexController extends Controller
 {
     public function index() {
 
-        $products = Product::all();
 
-        $product = Product::with('product_images')->find(1);
-        $img = $product->product_images;
+        $products = Product::with('product_images')->get();
 
+        return view('welcome')->with(['products'=>$products]);
 
-//        foreach($products as $product) {
-//            foreach($product->product_images as $image) {
-//                echo $image->source_img."<br>";
-//            }
-//        }
+    }
 
-        dd($product);
+    public function getSupport()
+    {
+        return view('contact');
+    }
 
+    public function getProduct ($id){
+        $product = Product::select(['id', 'name', 'price', 'description'])->where('id', $id)->with('product_images')->first();
 
-        return view('welcome')->with(['products'=>$products, 'product_images'=>$img]);
-
-
+        return view('product')->with(['product' => $product]);
     }
 }
